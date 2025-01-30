@@ -16,9 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from travello import views  # type: ignore
+from ckeditor_uploader import urls as ckeditor_urls
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('calc.urls')),  # Ensure the comma is present here
+    path('accounts/',include('accounts.urls')),
+    path('', include('travello.urls')) ,
+    #path('ckeditor/', include('ckeditor_uploader.urls'))# Ensure the comma is present here
+    #path('your-app/', include('your_app.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
+urlpatterns=urlpatterns+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
